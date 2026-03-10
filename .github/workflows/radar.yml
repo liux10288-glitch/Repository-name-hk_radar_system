@@ -1,0 +1,31 @@
+name: HK Radar
+
+on:
+  schedule:
+    - cron: "40 1 * * 1-5"
+    - cron: "10 8 * * 1-5"
+
+  workflow_dispatch:
+
+jobs:
+  run-radar:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install libraries
+      run: |
+        pip install requests
+
+    - name: Run Radar
+      run: |
+        python hk_radar_v10.py
